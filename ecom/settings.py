@@ -28,7 +28,9 @@ SECRET_KEY = 'django-insecure-l(2&7*zq$_#*ad0hp4x9ldhzl)m8zxt+6t+@=vb2#ddj&&dz!j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['djangoecom-production-11ed.up.railway.app/','https://djangoecom-production-11ed.up.railway.app/']
+CSRF_TRUSTED_ORIGINS=['https://djangoecom-production-11ed.up.railway.app/']
 
 
 # Application definition
@@ -88,7 +90,7 @@ DATABASES = {
         #'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'railway',
         'USER':'postgres',
-        'PASSWORD':os.environ.get('DB_PASSWORD_YO'),
+        'PASSWORD':os.environ['DB_PASSWORD_YO'],
         'HOST':'autorack.proxy.rlwy.net',
         'PORT':'23796 ',
 
@@ -133,6 +135,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 
 # Static files (CSS, JavaScript, Images)
