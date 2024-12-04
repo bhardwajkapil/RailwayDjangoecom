@@ -1,0 +1,88 @@
+<header class="bg-gray-900 text-white shadow-md">
+  <div class="container mx-auto flex items-center justify-between py-4 px-6">
+    <!-- Logo -->
+    <a href="{% url 'home' %}" hx-get="{% url 'home' %}" target="_self" hx-target="body" hx-swap="outerHTML" 
+      class="text-2xl font-extrabold tracking-wide text-indigo-500 hover:text-indigo-400 transition duration-200">
+      ShopEasy
+    </a>
+
+    <!-- Categories Dropdown -->
+    <div class="relative">
+      <select id="category-select" 
+        class="block bg-gray-800 appearance-none text-white text-sm px-4 py-2 rounded-md focus:ring-2 focus:ring-indigo-400 transition">
+        <option disabled selected>Categories </option>
+        <option value="all">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="home">Home</option>
+        <option value="toys">Toys</option>
+        <option value="books">Books</option>
+      </select>
+      <i class="fa fa-chevron-down absolute top-3 right-3 text-gray-500"></i>
+    </div>
+
+    <!-- Cart and Search -->
+    <div class="flex items-center space-x-8">
+      <!-- Search -->
+      <div class="relative">
+        <form action="{% url 'search_product' %}" method="POST" class="flex">
+          {% csrf_token %}
+          <input placeholder="Search products" type="text" name="search" 
+            class="px-4 py-2 rounded-l-lg border-none bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-400 flex-1">
+          <button type="submit" 
+            class="bg-indigo-500 px-4 rounded-r-lg text-white hover:bg-indigo-600 transition">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- User Profile & Auth -->
+      {% if user.is_authenticated %}
+      <div class="flex items-center space-x-4">
+        <a href="{% url 'update_user' %}" 
+              class="text-white font-semibold hover:text-indigo-400 transition">
+              <i class="fa fa-user-circle" aria-hidden="true"></i>
+              {{ user.first_name }}'s Profile
+            </a>
+
+       
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button 
+            class="bg-red-500 px-4 py-1 rounded-md text-sm font-semibold text-white hover:bg-red-600 transition">
+            LOGOUT
+          </button>
+        </form>
+      </div>
+      {% else %}
+      <div class="flex items-center space-x-4">
+        <a href="{% url 'register' %}" 
+          class="bg-blue-500 px-4 py-1 rounded-md text-sm font-semibold text-white hover:bg-blue-600 transition">
+          REGISTER
+        </a>
+        <a href="{% url 'login' %}" 
+          class="bg-green-500 px-4 py-1 rounded-md text-sm font-semibold text-white hover:bg-green-600 transition">
+          LOGIN
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Cart -->
+      <div class="relative">
+        <a href="{% url 'cart_summary' %}" 
+          class="text-2xl text-white hover:text-indigo-400 transition">
+          <i class="fa fa-shopping-cart"></i>
+        </a>
+        <span id="cart-qty" 
+          class="absolute -top-2 -right-2 bg-indigo-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center">
+          {{ cart | length }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Mobile Menu (optional for small screens) -->
+    <button class="text-2xl md:hidden focus:outline-none hover:text-indigo-400 transition">
+      <i class="fa fa-bars"></i>
+    </button>
+  </div>
+</header>

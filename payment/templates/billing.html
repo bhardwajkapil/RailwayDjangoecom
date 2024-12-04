@@ -1,0 +1,49 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-10">
+    <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
+      <!-- Total Amount -->
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">
+        Total Amount to Pay: <span class="text-indigo-500">${{ total }}</span>
+      </h2>
+  
+      <!-- Payment Card Design -->
+      <div class="relative bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-md p-6 mb-8">
+        <!-- Card Details -->
+        <div class="mb-6">
+          <p class="text-sm uppercase tracking-wide">Card Number</p>
+          <p class="text-xl font-semibold">•••• •••• •••• 1234</p>
+        </div>
+        <div class="flex justify-between">
+          <div>
+            <p class="text-sm uppercase tracking-wide">Card Holder</p>
+            <p class="text-lg font-semibold">Your Name</p>
+          </div>
+          <div>
+            <p class="text-sm uppercase tracking-wide">Expires</p>
+            <p class="text-lg font-semibold">MM/YY</p>
+          </div>
+        </div>
+        <!-- Card Brand Logo -->
+        <div class="absolute top-6 right-6">
+          <i class="fab fa-cc-visa text-4xl"></i> <!-- Visa logo -->
+        </div>
+      </div>
+  
+      <!-- Payment Form -->
+      <form action="{%url 'process_order' %}" method="POST" class="space-y-4">
+        {% csrf_token %}
+       {{payment_form.as_p}}
+        <!-- Styled Pay Button -->
+        <button 
+          type="submit" 
+          class="w-full bg-indigo-500 text-white py-2 rounded-lg shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-transform duration-200 transform hover:scale-105"
+        >
+          Pay Now
+        </button>
+      </form>
+    </div>
+  </div>
+  
+{% endblock  %}

@@ -1,0 +1,79 @@
+{% extends 'Base.html' %}
+
+{% block  content %}
+
+<div class="bg-white rounded-lg shadow-md overflow-hidden max-w-4xl m-4 p-2 flex flex-col md:flex-row">
+    <!-- Product Image -->
+    <div class="relative w-full md:w-1/3">
+        {% if product.sale_price %}
+        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded">Sale</span>
+        {% endif %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 md:h-full object-cover transition-transform duration-200 hover:scale-105">
+    </div>
+    
+    <!-- Product Details -->
+    <div class="p-4 md:w-2/3 flex flex-col justify-between">
+        <!-- Product Name -->
+        <h1 class="text-xl font-bold text-gray-800 mb-1">{{ product.name }}</h1>
+
+        <!-- Product Description -->
+        <p class="text-gray-600 text-sm mb-3">{{ product.description }}</p>
+
+        <!-- Price Section -->
+        <div class="mb-3">
+            {% if product.sale_price %}
+            <p class="text-lg font-bold text-red-500">${{ product.sale_price }}
+                <span class="text-gray-500 line-through text-sm">${{ product.price }}</span>
+            </p>
+            {% else %}
+            <p class="text-lg font-semibold text-gray-900">${{ product.price }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Call to Action -->
+        <div>
+            <button  id="add_cart" value="{{product.id}}"  class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium shadow hover:bg-blue-700 transition-all duration-150">
+                Add to Cart
+            </button>
+            <button class="ml-3 bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-medium shadow hover:bg-gray-300 transition-all duration-150">
+                Wishlist
+            </button>
+        </div>
+        <div class="relative inline-block">
+            <select  id="copies" 
+                class="block  bg-yellow-100  shadow-sm  focus:ring-2 focus:ring-yellow-500 ">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+           
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(document).on('click', '#add_cart', function(e) {
+          e.preventDefault();
+          $.ajax({
+              type: 'POST',
+              url: '{% url "cart_add" %}',
+              data: {
+                  productid: $('#add_cart').val(),
+                  product_qty: $('#copies option:selected').text(),
+                  csrfmiddlewaretoken: '{{ csrf_token }}', 
+                  action: 'post'
+              },
+              success: function(json) {
+                  console.log("ye dekho",json);
+                  document.getElementById("cart-qty").textContent=json.qty;
+              },
+          });
+        });
+      </script>
+      
+
+
+
+{% endblock  %}
