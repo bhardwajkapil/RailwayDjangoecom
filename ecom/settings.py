@@ -90,9 +90,9 @@ DATABASES = {
         #'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'railway',
         'USER':'postgres',
-        'PASSWORD':os.environ['DB_PASSWORD_YO'],
+        'PASSWORD':'SgKxyQlgiuEgpSPTONfSowOFJOBAJzXk',
         'HOST':'autorack.proxy.rlwy.net',
-        'PORT':'23796 ',
+        'PORT':'23796',
 
     }
 }
