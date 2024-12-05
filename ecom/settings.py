@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-l(2&7*zq$_#*ad0hp4x9ldhzl)m8zxt+6t+@=vb2#ddj&&dz!j
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'railwaydjangoecom-production.up.railway.app' ]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'railwaydjangoecom-production.up.railway.app' , '*']
 
 CSRF_TRUSTED_ORIGINS = ['https://railwaydjangoecom-production.up.railway.app']
 
