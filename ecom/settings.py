@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-#from dotenv import load_dotenv
-#load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,8 +29,10 @@ SECRET_KEY = 'django-insecure-l(2&7*zq$_#*ad0hp4x9ldhzl)m8zxt+6t+@=vb2#ddj&&dz!j
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['djangoecom-production-11ed.up.railway.app/','https://djangoecom-production-11ed.up.railway.app/']
-CSRF_TRUSTED_ORIGINS=['https://djangoecom-production-11ed.up.railway.app/']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'djangoecom-production-11ed.up.railway.app' , 'https://djangoecom-production-11ed.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://djangoecom-production-11ed.up.railway.app']
+
 
 
 # Application definition
@@ -90,7 +92,7 @@ DATABASES = {
         #'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'railway',
         'USER':'postgres',
-        'PASSWORD':'SgKxyQlgiuEgpSPTONfSowOFJOBAJzXk',
+        'PASSWORD': os.environ['DB_PASSWORD_YO'], 
         'HOST':'autorack.proxy.rlwy.net',
         'PORT':'23796',
 
