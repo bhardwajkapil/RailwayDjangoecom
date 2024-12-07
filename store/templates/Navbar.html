@@ -72,11 +72,12 @@
         <a href="{% url 'cart_summary' %}" 
           class="text-2xl text-white hover:text-indigo-400 transition">
           <i class="fa fa-shopping-cart"></i>
-        </a>
+        
         <span id="cart-qty" 
           class="absolute -top-2 -right-2 bg-indigo-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center">
           {{ cart | length }}
         </span>
+      </a>
       </div>
     </div>
 
