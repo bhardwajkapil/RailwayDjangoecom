@@ -38,6 +38,7 @@ CSRF_TRUSTED_ORIGINS = ['https://railwaydjangoecom-production.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
+    'paypal.standard.ipn',
    'whitenoise.runserver_nostatic',
     'payment',
      'store',
@@ -151,3 +152,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PAYPAL_TEST=True
+PAYPAL_RECEIVER_EMAIL='business@kapil.com'

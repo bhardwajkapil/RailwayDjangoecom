@@ -2,9 +2,16 @@ from django.shortcuts import render,redirect
 from cart.cart import Cart
 from .models import ShippingAddress,Order,OrderItem
 from .forms import ShippingAddressForm,PaymentForm
+#paypal related
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid
 
 
-    
+
+
+
 
 def place_order(request):
   cart=Cart(request)
@@ -28,8 +35,24 @@ def billing_order(request):
      total=cart.cart_total()
      shipping_info=request.POST
      request.session['shipping_info']=shipping_info
+     invoice_num=str(uuid.uuid4())
+     #getting the host
+     host=request.get_host()
+     paypal_dict={
+       'business':settings.PAYPAL_RECEIVER_EMAIL,
+       'amount':total,
+       'item_name':"orders",
+       'no_shipping':2,
+       'invoice':invoice_num,
+       'currency_code':'INR',
+       'notify_url':'https://{}{}'.format(host,reverse("paypal-ipn")),
+       'reverse_url':'https://{}{}'.format(host,reverse("payment_success")),
+       'cancel_return':'https://{}{}'.format(host,reverse("payment_fail"))
+
+     }
+     paypal_form=PayPalPaymentsForm(initial=paypal_dict)
      payment_form=PaymentForm(request.POST or None)
-     return render(request,"billing.html",{"total":total,"payment_form":payment_form})
+     return render(request,"billing.html",{"total":total,"payment_form":payment_form,"paypal_form":paypal_form})
    else:
      return redirect('home')
    
@@ -91,3 +114,8 @@ def process_order(request):
   else:
     return redirect("home")    
      
+def payment_success(request):
+  return render(request,"payment_success.html",{})
+
+def payment_fail(request):
+  return render(request,"payment_fail.html",{})

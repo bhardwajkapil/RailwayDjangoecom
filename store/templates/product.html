@@ -35,34 +35,36 @@
 
         <!-- Call to Action -->
         <div>
-            <button  id="add_cart" value="{{product.id}}"  class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium shadow hover:bg-blue-700 transition-all duration-150">
+            <button  value="{{product.id}}" id="add_cart1" class=" bg-blue-600 text-white px-4 py-2 rounded-md font-medium shadow hover:bg-blue-700 transition-all duration-150">
                 Add to Cart
             </button>
-            <button class="ml-3 bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-medium shadow hover:bg-gray-300 transition-all duration-150">
+            <button value="{{product.id}}"  id="add_cart2" class="  ml-3 bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-medium shadow hover:bg-gray-300 transition-all duration-150">
               <a href="{%url 'cart_summary'%}">Buy Now</a>
             </button>
+            <div class="relative inline-block mx-2 border">
+                <select  id="copies" 
+                    class="block  bg-blue-300   shadow-sm  focus:ring-2 focus:ring-yellow-500 ">
+                    <option disabled selected style="font-weight: bold; color: black;">Qty:1</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+               
+            </div>
         </div>
-        <div class="relative inline-block">
-            <select  id="copies" 
-                class="block  bg-yellow-100  shadow-sm  focus:ring-2 focus:ring-yellow-500 ">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-           
-        </div>
+       
     </div>
 </div>
     <script>
-        $(document).on('click', '#add_cart', function(e) {
+        $(document).on('click', '#add_cart1', function(e) {
           e.preventDefault();
           $.ajax({
               type: 'POST',
               url: '{% url "cart_add" %}',
               data: {
-                  productid: $('#add_cart').val(),
+                  productid: $('#add_cart1').val(),
                   product_qty: $('#copies option:selected').text(),
                   csrfmiddlewaretoken: '{{ csrf_token }}', 
                   action: 'post'
@@ -74,6 +76,27 @@
               },
           });
         });
+
+        $(document).on('click', '#add_cart2', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart_add" %}',
+                data: {
+                    productid: $('#add_cart2').val(),
+                    product_qty: $('#copies option:selected').text(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}', 
+                    action: 'post'
+                },
+                success: function(json) {
+                    console.log("ye dekho",json);
+                    document.getElementById("cart-qty1").textContent=json.qty;
+                    document.getElementById("cart-qty2").textContent=json.qty;
+                    window.location.href = '{% url "cart_summary" %}';
+
+                },
+            });
+          });
       </script>
       
 
