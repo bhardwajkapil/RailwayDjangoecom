@@ -44,9 +44,9 @@ def billing_order(request):
        'item_name':"orders",
        'no_shipping':2,
        'invoice':invoice_num,
-       'currency_code':'INR',
+       'currency_code':'USD',
        'notify_url':'https://{}{}'.format(host,reverse("paypal-ipn")),
-       'reverse_url':'https://{}{}'.format(host,reverse("payment_success")),
+       'return_url':'https://{}{}'.format(host,reverse("payment_success")),
        'cancel_return':'https://{}{}'.format(host,reverse("payment_fail"))
 
      }
