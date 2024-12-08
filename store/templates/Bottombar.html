@@ -1,0 +1,31 @@
+<nav class="fixed bottom-0 inset-x-0 bg-white shadow-lg border-t border-gray-200 text-white-700 flex justify-between px-6 py-3 sm:hidden">
+    
+    <a href="#" class="flex flex-col items-center space-y-1 text-sm">
+        <div class="relative">
+            <select id="category-select" 
+              class="block bg-white appearance-none items-center border text-black text-md px-1 py-1 rounded-md focus:ring-2 focus:ring-indigo-400 transition">
+              <option disabled selected style="font-weight: bold; color: black;">Filter</option>
+              <option value="all">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="home">Home</option>
+              <option value="toys">Toys</option>
+              <option value="books">Books</option>
+            </select>
+            <i class="fa-solid fa-filter absolute top-1 right-2 text-xl text-black"></i>
+          </div>
+    </a>
+    
+       <div class="relative">
+        <a href="{% url 'cart_summary' %} "
+        class=" flex flex-col items-center space-y-1 text-sm  text-2xl text-white text-indigo-900 transition ">
+        <i class="fa fa-shopping-cart"></i>
+      
+      <span id="cart-qty2" 
+        class="absolute -top-3 -right-3 bg-red-800 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center">
+        {{ cart | length }}
+      </span>
+    </a>
+       </div>
+   
+</nav>

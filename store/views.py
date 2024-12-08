@@ -11,7 +11,7 @@ from payment.forms import ShippingAddressForm
 from payment.models import ShippingAddress
 
 def home(request):
-    products=Product.objects.all()
+    products=Product.objects.all().order_by('?')
     return render(request,'home.html',{"products":products})
 
 def product(request,pk):

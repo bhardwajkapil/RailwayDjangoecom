@@ -85,11 +85,18 @@
 
 
 {% endfor %}
-<strong>total is :$ {{total}}</strong>
-<button class="flex items-center justify-center bg-green-900 text-white px-3 py-2 rounded-sm font-semibold shadow-md hover:bg-green-700 transition duration-200">
-   <a href="{%url 'place_order'%}"> <i class="fa fa-check-circle mr-2"></i>
-    Place Order</a>
-</button>
+<div class="fixed bottom-12 left-0 w-full bg-gray-100 shadow-lg py-3 border-t border-gray-300 flex items-center justify-between px-4">
+    <strong class="text-lg text-gray-800">Total: ${{ total }}</strong>
+    <button class="flex items-center justify-center bg-green-900 text-white px-4 py-2 rounded-sm font-semibold shadow-md hover:bg-green-700 transition duration-200">
+        <a href="{% url 'place_order' %}" class="flex items-center">
+            <i class="fa fa-check-circle mr-2"></i> Place Order
+        </a>
+    </button>
+</div>
+
+
+
+
 {% else %}
 <div class="flex flex-col items-center justify-center h-screen bg-gray-100 text-center"> 
     <i class="fas fa-shopping-cart text-gray-400 text-8xl mb-6"></i>

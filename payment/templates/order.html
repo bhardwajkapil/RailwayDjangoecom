@@ -19,10 +19,10 @@
                 {% if product.image %}
                   <img src="{{product.image.url}}" alt="image">
                 {% else %}
-                   <!--<i class="fas fa-box text-2xl text-gray-500"></i>-->
+                   <i class="fas fa-box text-2xl text-gray-500"></i>
                 {% endif %}
                     
-              <i class="fas fa-box text-2xl text-gray-500"></i> <!-- Replace with product image -->
+              
             </div>
             <!-- Product Details -->
             <div>
@@ -30,10 +30,10 @@
               {% if product.on_sale %}
               <p class="text-sm text-gray-500">
                 <span class="line-through text-red-500">{{ product.price }}</span>
-                <span class="text-green-500 font-bold">{{ product.sale_price }}</span>
+                <span class="text-green-500 font-bold">${{ product.sale_price }}</span>
               </p>
               {% else %}
-              <p class="text-sm text-gray-700 font-bold">{{ product.price }}</p>
+              <p class="text-sm text-gray-700 font-bold">${{ product.price }}</p>
               {% endif %}
             </div>
           </div>
