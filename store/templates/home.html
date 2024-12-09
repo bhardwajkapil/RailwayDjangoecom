@@ -15,7 +15,7 @@
         <div class="relative">
             <!-- Sale Badge -->
             {% if product.on_sale %}
-            <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold uppercase px-2 py-1 rounded">Sale</span>
+            <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold uppercase px-2 py-1 rounded">{{product.discount}}% Off</span>
             {% endif %}
             <img src="{{product.image.url}}" alt="{{product.name}}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200">
         </div>

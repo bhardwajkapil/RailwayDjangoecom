@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Product
+from .models import Product,Category
 from django.db.models import Q
 from store.forms import UserRegisterForm,UpdateUserForm
 from django.contrib.auth.decorators import login_required
@@ -12,11 +12,24 @@ from payment.models import ShippingAddress
 
 def home(request):
     products=Product.objects.all().order_by('?')
+    for product in products:
+        if product.on_sale and  product.sale_price<product.price:
+            discount=(product.sale_price*100)/product.price
+            discount=int(100-discount)
+          #  product["discount"]=discount
+            product.discount = discount
     return render(request,'home.html',{"products":products})
 
 def product(request,pk):
     product=Product.objects.get(id=pk)
-    return render(request,"product.html",{"product":product})
+    similar=Product.objects.filter(category__name=product.category.name).order_by("?")[:6]
+   # similar=Category.objects.get(name=product.category.name)
+    if product.sale_price<product.price:
+        discount=(product.sale_price*100)/product.price
+        discount=100-discount
+    
+    #print(similar)    
+    return render(request,"product.html",{"product":product,"discount":discount,"similar":similar})
 
 def search_product(request):
     if request.method=="POST":
