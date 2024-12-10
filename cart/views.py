@@ -2,6 +2,8 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.http import JsonResponse
 from .cart import Cart
 from store.models import Product
+from django.core.mail import send_mail
+
 
 
 # Create your views here.
@@ -37,6 +39,16 @@ def cart_update(request):
 def cart_delete(request,pk):  
      cart= Cart(request)   
      cart.delete_item(pk) 
+     shipping_info=request.session.get('shipping_info')
+     shipping_email=shipping_info['shipping_email']
+     send_mail(
+         subject='Hello fromshopeasy',        
+         message=' i just noticed ki aapne jo samman cart me tha usko delte kiya ha , chupchap usko wapas daalo aur abhi kharido minute se pahle nahi anzam soch ke rakhna',     # Plain text message
+         from_email='kb1101999@gmail.com',  
+         recipient_list=[shipping_email],  
+         fail_silently=False,                
+      )
+
      return redirect("cart_summary")
 
 def cart_total(request):

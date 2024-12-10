@@ -16,7 +16,7 @@ class ShippingAddressForm(forms.ModelForm):
         })
     )
      shipping_email = forms.EmailField(
-        max_length=13, required=True, widget=forms.TextInput(attrs={
+        max_length=60, required=True, widget=forms.TextInput(attrs={
             'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500',
             'placeholder': 'Shipping Email',
         })
@@ -46,7 +46,7 @@ class ShippingAddressForm(forms.ModelForm):
             'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500',
             'placeholder': 'shipping State',
         })
-    ) 
+    )  
      shipping_zipcode = forms.CharField(
         max_length=12, required=True, widget=forms.TextInput(attrs={
             'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500',
