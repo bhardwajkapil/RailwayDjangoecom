@@ -35,8 +35,10 @@ def product(request,pk):
         discount=(product.sale_price*100)/product.price
         discount=100-discount
         product.discount = discount
+    else:
+            product.disc = 0   
     #print(similar)    
-    return render(request,"product.html",{"product":product,"discount":discount,"similar":similar})
+    return render(request,"product.html",{"product":product,"similar":similar})
 
 def search_product(request):
     if request.method=="POST":

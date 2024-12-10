@@ -6,6 +6,7 @@ from .forms import ShippingAddressForm,PaymentForm
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
+from django.core.mail import send_mail
 import uuid
 
 
@@ -50,6 +51,15 @@ def billing_order(request):
        'cancel_return':'https://{}{}'.format(host,reverse("payment_fail"))
 
      }
+     shipping_info=request.session.get('shipping_info')
+     shipping_email=shipping_info['shipping_email']
+     send_mail(
+         subject='Hello fromshopeasy',        
+         message='hey kya apke pass paypal ha, kyuki ham ussu se paise lete han bro',     # Plain text message
+         from_email='kb1101999@gmail.com',  
+         recipient_list=[shipping_email],
+         fail_silently=False             
+      )
      paypal_form=PayPalPaymentsForm(initial=paypal_dict)
      payment_form=PaymentForm(request.POST or None)
      return render(request,"billing.html",{"total":total,"payment_form":payment_form,"paypal_form":paypal_form})
