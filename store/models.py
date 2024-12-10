@@ -56,7 +56,7 @@ class Profile(models.Model):
     state=models.CharField(max_length=20,null=True,blank=True)
     zipcode=models.CharField(max_length=20,null=True,blank=True)
     country=models.CharField(max_length=20,null=True,blank=True)
-    profile_pic=models.ImageField(upload_to='profile_pics/',null=True,blank=True)
+    profile_pic=models.ImageField(upload_to='uploads/profile_pics/',null=True,blank=True)
     cart_permanent=models.CharField(max_length=500,null=True,blank=True)
     createdAt=models.DateTimeField(auto_now=True)
   
@@ -72,3 +72,15 @@ def create_profile(sender,instance,created, **kwrgs):
 post_save.connect(create_profile,sender=User)    
 
 
+class Review(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    image=models.ImageField(upload_to='uploads/review',null=True,blank=True)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    title=models.CharField(max_length=200, blank=False)
+    body=models.CharField(max_length=100,blank=False)
+    rating=models.IntegerField()
+    createdAt=models.DateTimeField(auto_now_add=True)
+   
+    def __str__(self):
+        return f'Comment by {self.user.username} on {self.product.name}'
+    

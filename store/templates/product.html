@@ -59,9 +59,9 @@
     
 </div>
 <!--Similar Proucts-->
-<h1 class="text-2xl font-bold  text-gray-500 uppercase mx-16 mt-10 mb-6 border-b-2 border-gray-300 pb-2">
+<h3 class="text-2xl font-bold  text-gray-500 uppercase mx-10 mt-10 mb-6 border-b-2 border-gray-300 pb-2">
     You Might Also Like
-</h1>
+</h3>
 
 <div class="mx-auto max-w-2xl px-2 py-6 sm:px-4 sm:py-12 lg:max-w-7xl lg:px-8">
 
@@ -70,10 +70,10 @@
      {% for product in similar %}
      
      <a href="{% url 'product' product.id %}" hx-target="body" hx-swap="outerHTML" class=" {% if forloop.counter > 4 %}hidden md:block{% else %}block{% endif %}  block bg-white rounded-sm shadow-md overflow-hidden hover:shadow-sm transition-all duration-250">
-      <div class=" {% if forloop.counter > 4 %}hidden md:block{% else %}block{% endif %}">
+      <div class=" relative {% if forloop.counter > 4 %}hidden md:block{% else %}block{% endif %}">
           <!-- Sale Badge -->
           {% if product.on_sale %}
-          <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold uppercase px-2 py-1 rounded">{{product.discount}}% Off</span>
+          <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold uppercase px-2 py-1 rounded">{{product.disc}}% Off</span>
           {% endif %}
           <img src="{{product.image.url}}" alt="{{product.name}}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200">
       </div>

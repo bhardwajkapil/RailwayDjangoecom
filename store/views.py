@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from .models import Product,Category
+from .models import Product,Category,Review
 from django.db.models import Q
-from store.forms import UserRegisterForm,UpdateUserForm
+from store.forms import UserRegisterForm,UpdateUserForm,ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.models import User
@@ -24,10 +24,17 @@ def product(request,pk):
     product=Product.objects.get(id=pk)
     similar=Product.objects.filter(category__name=product.category.name).order_by("?")[:6]
    # similar=Category.objects.get(name=product.category.name)
+    for s in similar:
+        if s.sale_price<s.price:
+            disc=(s.sale_price*100)/s.price
+            disc=int(100-disc)
+            s.disc = disc
+        else:
+            s.disc=0    
     if product.sale_price<product.price:
         discount=(product.sale_price*100)/product.price
         discount=100-discount
-    
+        product.discount = discount
     #print(similar)    
     return render(request,"product.html",{"product":product,"discount":discount,"similar":similar})
 
@@ -92,3 +99,10 @@ def update_user(request):
         form=UserRegisterForm(instance=user)
         shipping_form=ShippingAddressForm(instance=shipping_info)
     return render(request,"profile.html",{"form":form,"shipping_form":shipping_form})
+
+def review_and_rate(request):
+    if request.POST:
+         review_form=ReviewForm(request.POST)
+    else:
+          review_form=ReviewForm(request.POST)
+    return render(request,'ratings.html',{"review_form":review_form})      
